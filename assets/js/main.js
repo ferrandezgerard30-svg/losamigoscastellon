@@ -275,20 +275,31 @@
       var prev = c.querySelector('[data-prev]');
       var next = c.querySelector('[data-next]');
       if (!track) return;
+      var items = Array.prototype.slice.call(track.children);
+      if (!items.length) return;
 
-      function step() {
-        var first = track.children[0];
-        if (!first) return 300;
-        var gap = parseFloat(getComputedStyle(track).columnGap || getComputedStyle(track).gap) || 16;
-        return first.getBoundingClientRect().width + gap;
+      /* indice de la tarjeta mas cercana a la posicion actual de scroll */
+      function currentIndex() {
+        var pos = track.scrollLeft, best = 0, bestDist = Infinity;
+        items.forEach(function (it, i) {
+          var d = Math.abs(it.offsetLeft - pos);
+          if (d < bestDist) { bestDist = d; best = i; }
+        });
+        return best;
+      }
+      /* mueve exactamente a la tarjeta [i], alineada a su borde izquierdo real */
+      function goTo(i) {
+        i = Math.max(0, Math.min(items.length - 1, i));
+        track.scrollTo({ left: items[i].offsetLeft, behavior: reduced ? 'auto' : 'smooth' });
       }
       function update() {
-        var max = track.scrollWidth - track.clientWidth - 2;
-        if (prev) prev.disabled = track.scrollLeft <= 2;
-        if (next) next.disabled = track.scrollLeft >= max;
+        var i = currentIndex();
+        if (prev) prev.disabled = i <= 0;
+        if (next) next.disabled = i >= items.length - 1;
       }
-      prev && prev.addEventListener('click', function () { track.scrollBy({ left: -step(), behavior: reduced ? 'auto' : 'smooth' }); });
-      next && next.addEventListener('click', function () { track.scrollBy({ left: step(), behavior: reduced ? 'auto' : 'smooth' }); });
+
+      prev && prev.addEventListener('click', function () { goTo(currentIndex() - 1); });
+      next && next.addEventListener('click', function () { goTo(currentIndex() + 1); });
       track.addEventListener('scroll', function () { requestAnimationFrame(update); }, { passive: true });
 
       /* arrastre con puntero fino */
@@ -305,11 +316,19 @@
         track.scrollLeft = startL - dx;
       });
       ['pointerup', 'pointercancel'].forEach(function (ev) {
-        track.addEventListener(ev, function () { down = false; track.classList.remove('is-drag'); });
+        track.addEventListener(ev, function () {
+          down = false; track.classList.remove('is-drag');
+          if (moved) goTo(currentIndex());
+        });
       });
       track.addEventListener('click', function (e) { if (moved) { e.preventDefault(); e.stopPropagation(); } }, true);
-      update();
-      window.addEventListener('resize', update);
+
+      /* corrige cualquier desalineacion inicial (fuentes cargando, scroll anchoring...) */
+      function settle() { track.scrollLeft = items[0].offsetLeft; update(); }
+      settle();
+      if (doc.fonts && doc.fonts.ready) { doc.fonts.ready.then(settle); }
+      requestAnimationFrame(settle);
+      window.addEventListener('resize', function () { goTo(currentIndex()); });
     });
   }
 
