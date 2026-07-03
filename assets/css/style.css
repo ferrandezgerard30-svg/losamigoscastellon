@@ -326,18 +326,16 @@ section{position:relative}
 .pagehero .label{display:block;margin-bottom:18px}
 .pagehero__sub{max-width:56ch;margin-top:20px;color:var(--cream-300)}
 
-/* Lista de precios */
+/* Lista de servicios (sin precios) */
 .pricegroups{display:grid;gap:clamp(40px,5vw,64px)}
-.pricelist{display:grid;gap:0;border-top:1px solid var(--line-soft)}
-.price{display:grid;grid-template-columns:1fr auto;align-items:baseline;gap:8px 22px;padding:22px 6px;border-bottom:1px solid var(--line-soft);position:relative;transition:background var(--dur-2),padding var(--dur-2) var(--ease-out)}
-.price__name{font-family:var(--font-display);font-weight:600;font-size:clamp(19px,2vw,25px);color:var(--cream-050)}
-.price__desc{grid-column:1;color:var(--text-muted);font-size:14.5px;max-width:52ch}
-.price__amt{grid-row:1/span 2;font-family:var(--font-display);font-weight:900;font-size:clamp(21px,2.3vw,30px);color:var(--accent-hi);white-space:nowrap}
-.price__amt small{font-family:var(--font-label);font-weight:500;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--text-muted)}
-.price::before{content:"";position:absolute;left:0;bottom:-1px;height:1px;width:100%;background:var(--accent-hi);transform:scaleX(0);transform-origin:left;transition:transform .5s var(--ease-out)}
+.servicelist{display:grid;gap:0;border-top:1px solid var(--line-soft)}
+.sitem{display:flex;align-items:baseline;gap:20px;padding:24px 6px;border-bottom:1px solid var(--line-soft);position:relative;transition:background var(--dur-2),padding var(--dur-2) var(--ease-out)}
+.sitem__idx{font-family:var(--font-label);font-weight:500;font-size:12px;letter-spacing:.16em;color:var(--accent-hi);flex:none}
+.sitem__name{font-family:var(--font-display);font-weight:600;font-size:clamp(20px,2.1vw,27px);color:var(--cream-050)}
+.sitem::before{content:"";position:absolute;left:0;bottom:-1px;height:1px;width:100%;background:var(--accent-hi);transform:scaleX(0);transform-origin:left;transition:transform .5s var(--ease-out)}
 @media(hover:hover) and (pointer:fine){
-  .price:hover{background:rgba(239,229,210,.025);padding-left:16px}
-  .price:hover::before{transform:scaleX(1)}
+  .sitem:hover{background:rgba(239,229,210,.025);padding-left:16px}
+  .sitem:hover::before{transform:scaleX(1)}
 }
 .pricenote{color:var(--text-muted);font-size:14px;border:1px dashed var(--line);border-radius:var(--radius);padding:16px 20px;margin-top:26px}
 

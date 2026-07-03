@@ -14,16 +14,24 @@ Páginas: `index.html` · `servicios.html` · `galeria.html` · `contacto.html`.
 - Horario: busca `9:00` / `17:00` / `21:00` y también la tabla de `contacto.html`.
 - Valoración/reseñas: busca `4,8` y `155`.
 - Dirección: busca `Joaqu&iacute;n Costa`.
-- Precios: en `servicios.html`, bloques `.price`.
+- Servicios: en `servicios.html`, bloques `.sitem` (sin precios, ver nota abajo).
 - Los acentos van con entidades HTML (`&aacute;`, `&ntilde;`, `&euro;`…): mantenlo al editar.
 
+## Sobre los precios
+La web NO muestra precios. Los del escaparate se leyeron sobre un cristal con reflejos y no se
+pudo confirmar la lectura con seguridad (p. ej. una cifra dudaba entre "Afeitar" y "Perfilar"),
+así que se retiraron por completo para no publicar un dato que podría ser incorrecto. Solo se
+listan los nombres de servicio que sí son legibles con claridad: Corte de pelo, Corte niños,
+Corte con navaja, Arreglo de barba, Corte + barba y Corte con diseño. Cuando el negocio confirme
+precios reales, se pueden añadir en `servicios.html` (bloques `.sitem`).
+
 ## Qué revisar / confirmar con el negocio
-- **Perfilar — 5 €**: en la foto del escaparate se lee parcialmente ("…ilar 5€"). Confírmalo.
-- Los precios de **Arreglo de barba**, **Corte + barba** y **Corte con diseño** salen cortados
-  en la foto → están como "Consultar". Si te pasan las cifras, sustitúyelas en `servicios.html`.
-- El rótulo del escaparate muestra dos líneas más ("Corte de pelo + la…" y "Corte + Barba + la…",
-  seguramente "+ lavado"): no se añadieron por no ser legibles. Añádelas cuando las confirmen.
 - WhatsApp: incluido porque la placa del horario muestra el icono de WhatsApp junto al teléfono.
+- **Horario de tarde**: la placa de la foto dice 17:00–21:00, pero la ficha de Google marca
+  17:00–20:00. La web usa el de la placa (21:00); confírmalo y cámbialo si toca.
+- "Deja tu reseña": enlaza directo al formulario de reseñas de Google del negocio
+  (place ID `ChIJCYqXFn7_Xw0RhbZOXLvFFtM`). Está en la sección de reseñas, en el footer
+  y en el CTA de contacto.
 - No hay mapa embebido (rompería el modo offline y añade cookies de terceros): hay tarjeta de
   ubicación + enlace "Cómo llegar" a Google Maps. Si prefieres iframe de Maps, dímelo.
 - El Instagram @peluquerialosamigos1 NO se ha incluido: no está confirmado que sea del local
